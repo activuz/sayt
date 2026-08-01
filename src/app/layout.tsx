@@ -33,6 +33,11 @@ export const metadata: Metadata = {
     locale: "uz_UZ",
     type: "website",
   },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   robots: {
     index: true,
     follow: true,
@@ -48,6 +53,7 @@ export default function RootLayout({
     <html lang="uz">
       <head>
         <meta name="format-detection" content="telephone=no" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="bg-[#f7f4ee] text-[#1c261e] antialiased selection:bg-[#1b3e2b] selection:text-white font-sans">
         <LanguageProvider>{children}</LanguageProvider>
