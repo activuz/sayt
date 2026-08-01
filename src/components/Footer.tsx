@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
         {/* Links & Switcher */}
         <div className="flex flex-col sm:flex-row items-center gap-4 text-xs font-bold text-[#e8e2d5]">
           <a
-            href="https://t.me/mirfozil_dev"
+            href="https://t.me/jahongirtech"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline flex items-center space-x-1"

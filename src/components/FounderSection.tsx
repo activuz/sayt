@@ -22,7 +22,7 @@ export const FounderSection: React.FC = () => {
             <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-[#1b3e2b] shadow-md relative bg-[#e8e2d5] flex items-center justify-center">
               <Image
                 src="/images.webp"
-                alt="Mirfozil — Zotdor.uz asoschisi"
+                alt="Baxtiyor — Zotdor.uz asoschisi"
                 width={150}
                 height={150}
                 className="object-cover w-full h-full"
@@ -49,7 +49,7 @@ export const FounderSection: React.FC = () => {
               </p>
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
                 <a
-                  href="https://t.me/mirfozil_dev"
+                  href="https://t.me/jahongirtech"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="min-h-touch px-4 py-2.5 bg-[#0088cc] hover:bg-[#0077b5] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-xl transition-all inline-flex items-center space-x-2 shadow-sm"
