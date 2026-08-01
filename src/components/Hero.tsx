@@ -11,7 +11,7 @@ export const Hero: React.FC = () => {
     <section
       className="text-[#f7f4ee] pt-8 pb-12 px-4 relative overflow-hidden border-b-4 border-[#4a3728]"
       style={{
-        backgroundImage: "url('/image2.png')",
+        backgroundImage: "url('/image2.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

@@ -21,7 +21,7 @@ export const FounderSection: React.FC = () => {
           <div className="shrink-0">
             <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full overflow-hidden border-4 border-[#1b3e2b] shadow-md relative bg-[#e8e2d5] flex items-center justify-center">
               <Image
-                src="/images.jpg"
+                src="/images.webp"
                 alt="Mirfozil — Zotdor.uz asoschisi"
                 width={150}
                 height={150}

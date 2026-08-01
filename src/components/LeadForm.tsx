@@ -37,13 +37,15 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   const [surveyState, setSurveyState] = useState<
     "idle" | "offered" | "answering" | "completed" | "dismissed"
   >("idle");
-  const [currentQuestion, setCurrentQuestion] = useState<number>(1); // 1 to 4
+  const [currentQuestion, setCurrentQuestion] = useState<number>(1); // 1 to 6
 
   // Survey responses
   const [role, setRole] = useState<string>("");
   const [animalTypes, setAnimalTypes] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<string>("");
   const [painPoints, setPainPoints] = useState<string[]>([]);
+  const [preferredPlatform, setPreferredPlatform] = useState<string>("");
+  const [transactionFreq, setTransactionFreq] = useState<string>("");
   const [comment, setComment] = useState<string>("");
 
   // Fetch count on mount
@@ -205,6 +207,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         overrides.priceRange !== undefined ? overrides.priceRange : priceRange,
       pain_points:
         overrides.painPoints !== undefined ? overrides.painPoints : painPoints,
+      preferred_platform:
+        overrides.preferredPlatform !== undefined ? overrides.preferredPlatform : preferredPlatform,
+      transaction_frequency:
+        overrides.transactionFreq !== undefined ? overrides.transactionFreq : transactionFreq,
       comment: overrides.comment !== undefined ? overrides.comment : comment,
       survey_status: status,
     };
@@ -267,13 +273,29 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     setPainPoints(updated);
   };
 
-  const handleCompleteSurvey = () => {
+  const handleNextQ4 = () => {
     trackEvent("survey_question_answered", {
       question: 4,
       value: painPoints,
     });
+    patchSurveyAnswers("partial", { painPoints });
+    setCurrentQuestion(5);
+  };
+
+  // Question 5 Select
+  const handleSelectPlatform = (platform: string) => {
+    setPreferredPlatform(platform);
+    trackEvent("survey_question_answered", { question: 5, value: platform });
+    patchSurveyAnswers("partial", { preferredPlatform: platform });
+    setCurrentQuestion(6);
+  };
+
+  // Question 6 Select
+  const handleSelectFrequency = (freq: string) => {
+    setTransactionFreq(freq);
+    trackEvent("survey_question_answered", { question: 6, value: freq });
     trackEvent("survey_completed");
-    patchSurveyAnswers("complete", { painPoints });
+    patchSurveyAnswers("complete", { transactionFreq: freq });
     setSurveyState("completed");
   };
 
@@ -369,7 +391,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 <span className="text-xs font-black uppercase tracking-wider text-[#1b3e2b] bg-[#e8f0eb] px-3 py-1 rounded-full">
                   {t.thankYou.progress
                     .replace("{current}", currentQuestion.toString())
-                    .replace("{total}", "4")}
+                    .replace("{total}", "6")}
                 </span>
                 <button
                   onClick={handleDismissSurvey}
@@ -559,12 +581,88 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                     })}
                   </div>
                   <button
-                    onClick={handleCompleteSurvey}
+                    onClick={handleNextQ4}
                     type="button"
                     className="w-full min-h-touch py-3.5 bg-[#1b3e2b] hover:bg-[#122b1e] text-white font-extrabold text-base rounded-xl transition-all active:scale-[0.98] mt-2"
                   >
-                    {t.thankYou.submitSurveyBtn}
+                    {t.thankYou.nextBtn}
                   </button>
+                </div>
+              )}
+
+              {/* Question 5 */}
+              {currentQuestion === 5 && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-black text-[#1c261e]">
+                    5. {t.thankYou.questions.q5Title}
+                  </h3>
+                  <div className="space-y-2.5">
+                    {t.thankYou.questions.q5Options.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => handleSelectPlatform(opt)}
+                        className={`w-full min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between ${
+                          preferredPlatform === opt
+                            ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
+                            : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                        }`}
+                      >
+                        <span>{opt}</span>
+                        <svg
+                          className="w-5 h-5 text-current opacity-70"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Question 6 */}
+              {currentQuestion === 6 && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-black text-[#1c261e]">
+                    6. {t.thankYou.questions.q6Title}
+                  </h3>
+                  <div className="space-y-2.5">
+                    {t.thankYou.questions.q6Options.map((opt) => (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => handleSelectFrequency(opt)}
+                        className={`w-full min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between ${
+                          transactionFreq === opt
+                            ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
+                            : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                        }`}
+                      >
+                        <span>{opt}</span>
+                        <svg
+                          className="w-5 h-5 text-current opacity-70"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

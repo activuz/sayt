@@ -94,7 +94,7 @@ export const i18n = {
         "Сизни рўйхатга олдик. Платформа ишга тушганда рақамингизга хабар берамиз.",
       surveyOfferTitle: "Платформани биргаликда қурамиз",
       surveyOfferDesc:
-        "4 та саволга жавоб берсангиз, платформани сизга керакли қилиб қурамиз. Ярим дақиқа вақт олади.",
+        "Саволларга жавоб берсангиз, платформани сизга керакли қилиб қурамиз. Ярим дақиқа вақт олади.",
       startSurveyBtn: "Жавоб бериш",
       laterLink: "Кейинроқ",
       closeLink: "Ёпиш",
@@ -135,6 +135,21 @@ export const i18n = {
           "Транспорт ва етказиб бериш",
           "Ветеринар ҳужжат",
           "Тўлов хавфсизлиги",
+        ],
+        q5Title: "Қайси платформа сизга қулайроқ?",
+        q5Options: [
+          "Телеграм бот",
+          "Телефон учун илова",
+          "Вебсайт (браузер орқали)",
+          "Барчаси бир хилда қулай",
+        ],
+        q6Title: "Ойига тахминан нечта чорва олди-сотти қиласиз?",
+        q6Options: [
+          "Ойда 1–2 та",
+          "Ойда 3–5 та",
+          "Ойда 5 тадан кўп",
+          "Йилда бир-икки марта",
+          "Ҳали бошламаганман, режалаяпман",
         ],
       },
       completed: {
@@ -241,7 +256,7 @@ export const i18n = {
         "Sizni ro'yxatga oldik. Platforma ishga tushganda raqamingizga xabar beramiz.",
       surveyOfferTitle: "Platformani birgalikda quramiz",
       surveyOfferDesc:
-        "4 ta savolga javob bersangiz, platformani sizga kerakli qilib quramiz. Yarim daqiqa vaqt oladi.",
+        "6 ta savolga javob bersangiz, platformani sizga kerakli qilib quramiz. Yarim daqiqa vaqt oladi.",
       startSurveyBtn: "Javob berish",
       laterLink: "Keyinroq",
       closeLink: "Yopish",
@@ -282,6 +297,21 @@ export const i18n = {
           "Transport va yetkazib berish",
           "Veterinar hujjat",
           "To'lov xavfsizligi",
+        ],
+        q5Title: "Qaysi platforma sizga qulayroq?",
+        q5Options: [
+          "Telegram bot",
+          "Telefon uchun ilova",
+          "Vebsayt (brauzer orqali)",
+          "Barchasi bir xilda qulay",
+        ],
+        q6Title: "Oyiga taxminan nechta chorva oldi-sotti qilasiz?",
+        q6Options: [
+          "Oyda 1–2 ta",
+          "Oyda 3–5 ta",
+          "Oyda 5 tadan ko'p",
+          "Yilda bir-ikki marta",
+          "Hali boshlamaganman, rejalayapman",
         ],
       },
       completed: {
