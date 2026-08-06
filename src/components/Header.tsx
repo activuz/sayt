@@ -7,13 +7,13 @@ export const Header: React.FC = () => {
   const { t, toggleLang } = useLanguage();
 
   return (
-    <header className="sticky top-0 z-50 bg-[#1b3e2b] text-[#f7f4ee] shadow-md border-b-2 border-[#122b1e]">
-      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Brand Logo */}
+    <header className="sticky top-0 z-50 bg-[#eef2dc]/95 backdrop-blur-md border-b border-[#c5d4a8]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+        {/* Logo */}
         <div className="flex items-center space-x-2.5">
-          <div className="w-10 h-10 rounded-xl bg-[#e8e2d5] text-[#1b3e2b] flex items-center justify-center font-black text-xl shadow-inner border border-[#d4cbba]">
+          <div className="w-10 h-10 rounded-2xl bg-[#1e3a0f] text-[#eef2dc] flex items-center justify-center font-black text-lg shadow-sm">
             <svg
-              className="w-6 h-6 fill-current text-[#1b3e2b]"
+              className="w-5 h-5 fill-current"
               viewBox="0 0 24 24"
               aria-hidden="true"
             >
@@ -21,24 +21,24 @@ export const Header: React.FC = () => {
             </svg>
           </div>
           <div>
-            <span className="text-xl sm:text-2xl font-black tracking-tight text-[#f7f4ee] block leading-none">
-              Zotdor<span className="text-[#8c6f56]">.uz</span>
+            <span className="text-xl sm:text-2xl font-black tracking-tight text-[#1e3a0f] block leading-none" style={{ fontFamily: "var(--font-display)" }}>
+              Zotdor<span className="text-[#3d6b2e]">.uz</span>
             </span>
-            <span className="text-[10px] uppercase font-bold tracking-wider text-[#e8e2d5] opacity-90 block mt-0.5">
+            <span className="text-[10px] uppercase font-bold tracking-wider text-[#4a5e3a] block mt-0.5">
               {t.header.subBrand}
             </span>
           </div>
         </div>
 
-        {/* Right Section: Language Switcher Button (Min 48px height) */}
+        {/* Language Switcher */}
         <button
           onClick={toggleLang}
           type="button"
-          className="min-h-touch px-4 py-2.5 bg-[#e8e2d5] hover:bg-[#ffffff] active:scale-95 text-[#1b3e2b] font-extrabold text-xs sm:text-sm rounded-xl transition-all border border-[#d4cbba] flex items-center space-x-2 shadow-sm"
+          className="min-h-touch px-4 py-2 bg-[#1e3a0f] hover:bg-[#2a4f17] text-[#eef2dc] font-bold text-xs sm:text-sm rounded-full transition-colors flex items-center space-x-2 shadow-sm active:scale-95 cursor-pointer"
           aria-label="Alifboni o'zgartirish"
         >
           <svg
-            className="w-4 h-4 text-[#1b3e2b]"
+            className="w-4 h-4 text-[#eef2dc]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

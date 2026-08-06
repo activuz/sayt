@@ -17,7 +17,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f7f4ee] font-sans antialiased text-[#1c261e] selection:bg-[#1b3e2b] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#eef2dc] antialiased text-[#1e3a0f] selection:bg-[#3d6b2e] selection:text-white">
       {/* 1. Header */}
       <Header />
 

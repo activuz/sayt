@@ -2,15 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 :root {
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bg-page: #eef2dc;
+  --green-dark: #1e3a0f;
+  --green-mid: #3d6b2e;
+  --green-light: #dce8c8;
+  --green-pale: #f5f8eb;
+  --text-dark: #1e3a0f;
+  --text-muted: #4a5e3a;
+  --border-color: #c5d4a8;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-  font-family: var(--font-sans);
-  background-color: #f7f4ee;
-  color: #1c261e;
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-dark);
   -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
 }
 
 /* Custom minimal scrollbar */
@@ -18,14 +33,24 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f7f4ee;
+  background: var(--bg-page);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1b3e2b;
+  background: var(--green-dark);
   border-radius: 3px;
 }
 
 /* Touch input optimization */
 input, select, button {
   touch-action: manipulation;
+}
+
+/* Decorative star keyframes */
+@keyframes gentle-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.star-spin {
+  animation: gentle-spin 8s linear infinite;
 }

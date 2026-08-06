@@ -3,16 +3,16 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const viewport: Viewport = {
-  themeColor: "#1b3e2b",
+  themeColor: "#1e3a0f",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 };
 
 export const metadata: Metadata = {
-  title: "Zotdor.uz — Чорвани сотиш ва сотиб олиш",
+  title: "Zotdor.uz — Chorvani sotish va sotib olish",
   description:
-    "Ўзбекистоннинг исталган нуқтасидан — қорамол, қўй-эчки, от ва бошқа чорва моллари. Сотувчи ҳам, харидор ҳам бир жойда.",
+    "O'zbekistonning istalgan nuqtasidan — qoramol, qo'y-echki, ot va boshqa chorva mollari. Sotuvchi ham, xaridor ham bir joyda.",
   keywords: [
     "Zotdor",
     "Zotdor.uz",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Zotdor.uz Team" }],
   openGraph: {
-    title: "Zotdor.uz — Чорвани сотиш ва сотиб олиш",
+    title: "Zotdor.uz — Chorvani sotish va sotib olish",
     description:
-      "Ўзбекистоннинг исталган нуқтасидан — қорамол, қўй-эчки, от ва бошқа чорва моллари. Сотувчи ҳам, харидор ҳам бир жойда.",
+      "O'zbekistonning istalgan nuqtasidan — qoramol, qo'y-echki, ot va boshqa chorva mollari. Sotuvchi ham, xaridor ham bir joyda.",
     url: "https://zotdor.uz",
     siteName: "Zotdor.uz",
     locale: "uz_UZ",
@@ -55,7 +55,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
-      <body className="bg-[#f7f4ee] text-[#1c261e] antialiased selection:bg-[#1b3e2b] selection:text-white font-sans">
+      <body className="bg-[#eef2dc] text-[#1e3a0f] antialiased selection:bg-[#3d6b2e] selection:text-white">
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

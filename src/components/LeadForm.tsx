@@ -32,8 +32,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   // Registered leads count (Supabase)
   const [registeredCount, setRegisteredCount] = useState<number>(0);
 
-  // Survey flow states
-  // surveyState: 'idle' | 'offered' | 'answering' | 'completed' | 'dismissed'
+  // Survey flow states: 'idle' | 'offered' | 'answering' | 'completed' | 'dismissed'
   const [surveyState, setSurveyState] = useState<
     "idle" | "offered" | "answering" | "completed" | "dismissed"
   >("idle");
@@ -79,17 +78,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({
       formatted += " " + cleanDigits.slice(5, 7);
     }
     if (cleanDigits.length >= 8) {
-      formatted += " " + cleanDigits.slice(7, 9);
+      formatted += " " + cleanDigits.slice(5, 9);
     }
 
     setPhone(formatted);
     if (phoneError) setPhoneError("");
   };
 
-  // Extract raw digits for length validation
-  const getRawPhoneDigits = (ph: string) => {
-    return ph.slice(4).replace(/\D/g, "");
-  };
+  const getRawPhoneDigits = (ph: string) => ph.slice(4).replace(/\D/g, "");
 
   const handleFormFocus = () => {
     trackEvent("form_started");
@@ -154,7 +150,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
       console.error("LocalStorage save error:", err);
     }
 
-    // Try background API call and capture Supabase UUID
+    // Background API call & store generated Supabase UUID if returned
     try {
       const res = await fetch("/api/submit", {
         method: "POST",
@@ -163,7 +159,6 @@ export const LeadForm: React.FC<LeadFormProps> = ({
       });
       if (res.ok) {
         const data = await res.json();
-        // Use the real Supabase UUID for PATCH survey updates
         if (data.supabase_id) {
           setLeadId(data.supabase_id);
           try {
@@ -208,9 +203,13 @@ export const LeadForm: React.FC<LeadFormProps> = ({
       pain_points:
         overrides.painPoints !== undefined ? overrides.painPoints : painPoints,
       preferred_platform:
-        overrides.preferredPlatform !== undefined ? overrides.preferredPlatform : preferredPlatform,
+        overrides.preferredPlatform !== undefined
+          ? overrides.preferredPlatform
+          : preferredPlatform,
       transaction_frequency:
-        overrides.transactionFreq !== undefined ? overrides.transactionFreq : transactionFreq,
+        overrides.transactionFreq !== undefined
+          ? overrides.transactionFreq
+          : transactionFreq,
       comment: overrides.comment !== undefined ? overrides.comment : comment,
       survey_status: status,
     };
@@ -314,11 +313,11 @@ export const LeadForm: React.FC<LeadFormProps> = ({
   return (
     <div
       id={`${idPrefix}-form-wrapper`}
-      className="w-full bg-[#ffffff] rounded-2xl border-2 border-[#e8e2d5] shadow-lg overflow-hidden text-[#1c261e]"
+      className="w-full bg-white rounded-3xl border-2 border-[#c5d4a8] shadow-lg overflow-hidden text-[#1e3a0f]"
     >
       {showTitleInCard && !submitted && (
-        <div className="bg-[#1b3e2b] text-[#f7f4ee] px-6 py-4 border-b border-[#122b1e]">
-          <h2 className="text-xl font-black">{t.secondCta.title}</h2>
+        <div className="bg-[#1e3a0f] text-[#eef2dc] px-6 py-4 border-b border-[#2a4f17]">
+          <h2 className="text-xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>{t.secondCta.title}</h2>
         </div>
       )}
 
@@ -327,7 +326,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
         <div className="p-6 sm:p-8 space-y-6">
           {surveyState === "offered" && (
             <div className="space-y-5 text-center">
-              <div className="w-16 h-16 bg-[#e8f0eb] text-[#1b3e2b] rounded-full flex items-center justify-center mx-auto border-2 border-[#1b3e2b]">
+              <div className="w-16 h-16 bg-[#dce8c8] text-[#1e3a0f] rounded-full flex items-center justify-center mx-auto border-2 border-[#3d6b2e]">
                 <svg
                   className="w-10 h-10 stroke-current"
                   fill="none"
@@ -343,21 +342,21 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               </div>
 
               <div>
-                <h3 className="text-2xl font-black text-[#1c261e]">
+                <h3 className="text-2xl font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                   {t.thankYou.title.replace("{name}", name)}
                 </h3>
-                <p className="text-sm text-[#526054] font-medium mt-2 leading-relaxed">
+                <p className="text-sm text-[#4a5e3a] font-medium mt-2 leading-relaxed">
                   {t.thankYou.subtitle}
                 </p>
               </div>
 
-              <hr className="border-[#e8e2d5]" />
+              <hr className="border-[#c5d4a8]" />
 
-              <div className="bg-[#f7f4ee] border border-[#d4cbba] p-5 rounded-2xl text-left space-y-3">
-                <h4 className="text-base font-black text-[#1b3e2b]">
+              <div className="bg-[#eef2dc] border border-[#c5d4a8] p-5 rounded-2xl text-left space-y-3">
+                <h4 className="text-base font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                   {t.thankYou.surveyOfferTitle}
                 </h4>
-                <p className="text-xs sm:text-sm text-[#526054] font-medium leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#4a5e3a] font-medium leading-relaxed">
                   {t.thankYou.surveyOfferDesc}
                 </p>
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
@@ -368,14 +367,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                       setCurrentQuestion(1);
                     }}
                     type="button"
-                    className="w-full sm:w-auto min-h-touch px-6 py-3 bg-[#1b3e2b] hover:bg-[#122b1e] text-white font-extrabold text-sm rounded-xl transition-all active:scale-95 text-center"
+                    className="w-full sm:w-auto min-h-touch px-6 py-3 bg-[#3d6b2e] hover:bg-[#2a4f17] text-white font-bold text-sm rounded-full transition-all active:scale-95 text-center cursor-pointer"
                   >
                     {t.thankYou.startSurveyBtn}
                   </button>
                   <button
                     onClick={handleDismissSurvey}
                     type="button"
-                    className="text-xs font-bold text-[#8c6f56] hover:text-[#4a3728] underline py-2"
+                    className="text-xs font-bold text-[#4a5e3a] hover:text-[#1e3a0f] underline py-2 cursor-pointer"
                   >
                     {t.thankYou.laterLink}
                   </button>
@@ -387,8 +386,8 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           {surveyState === "answering" && (
             <div className="space-y-5">
               {/* Top Bar: Progress and Close */}
-              <div className="flex items-center justify-between pb-3 border-b border-[#e8e2d5]">
-                <span className="text-xs font-black uppercase tracking-wider text-[#1b3e2b] bg-[#e8f0eb] px-3 py-1 rounded-full">
+              <div className="flex items-center justify-between pb-3 border-b border-[#c5d4a8]">
+                <span className="text-xs font-black uppercase tracking-wider text-[#1e3a0f] bg-[#dce8c8] px-3 py-1 rounded-full">
                   {t.thankYou.progress
                     .replace("{current}", currentQuestion.toString())
                     .replace("{total}", "6")}
@@ -396,16 +395,24 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 <button
                   onClick={handleDismissSurvey}
                   type="button"
-                  className="text-xs font-bold text-[#8c6f56] hover:text-[#1c261e] underline py-1"
+                  className="text-xs font-bold text-[#4a5e3a] hover:text-[#1e3a0f] underline py-1 cursor-pointer"
                 >
                   {t.thankYou.closeLink}
                 </button>
               </div>
 
+              {/* Progress Bar */}
+              <div className="w-full bg-[#c5d4a8] h-2 rounded-full overflow-hidden">
+                <div
+                  className="bg-[#3d6b2e] h-full transition-all duration-300"
+                  style={{ width: `${(currentQuestion / 6) * 100}%` }}
+                />
+              </div>
+
               {/* Question 1 */}
               {currentQuestion === 1 && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-black text-[#1c261e]">
+                  <h3 className="text-lg font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                     1. {t.thankYou.questions.q1Title}
                   </h3>
                   <div className="space-y-2.5">
@@ -414,10 +421,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                         key={opt}
                         type="button"
                         onClick={() => handleSelectRole(opt)}
-                        className={`w-full min-h-touch p-4 rounded-xl border-2 text-left font-bold text-sm sm:text-base transition-all active:scale-[0.99] flex items-center justify-between ${
+                        className={`w-full min-h-touch p-3.5 rounded-2xl border-2 text-left font-bold text-sm sm:text-base transition-all active:scale-[0.99] flex items-center justify-between cursor-pointer ${
                           role === opt
-                            ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
-                            : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                            ? "bg-[#3d6b2e] text-white border-[#3d6b2e]"
+                            : "bg-[#eef2dc] hover:bg-[#dce8c8] text-[#1e3a0f] border-[#c5d4a8]"
                         }`}
                       >
                         <span>{opt}</span>
@@ -444,10 +451,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               {currentQuestion === 2 && (
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-lg font-black text-[#1c261e]">
+                    <h3 className="text-lg font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                       2. {t.thankYou.questions.q2Title}
                     </h3>
-                    <p className="text-xs text-[#526054] font-medium mt-0.5">
+                    <p className="text-xs text-[#4a5e3a] font-medium mt-0.5">
                       {t.thankYou.questions.q2Subtitle}
                     </p>
                   </div>
@@ -459,17 +466,17 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                           key={opt}
                           type="button"
                           onClick={() => toggleAnimalType(opt)}
-                          className={`min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm flex items-center space-x-3 transition-all ${
+                          className={`min-h-touch p-3.5 rounded-2xl border-2 text-left font-bold text-sm flex items-center space-x-3 transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
-                              : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                              ? "bg-[#3d6b2e] text-white border-[#3d6b2e]"
+                              : "bg-[#eef2dc] hover:bg-[#dce8c8] text-[#1e3a0f] border-[#c5d4a8]"
                           }`}
                         >
                           <div
                             className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 ${
                               isSelected
-                                ? "bg-white text-[#1b3e2b]"
-                                : "border-[#8c6f56] bg-white"
+                                ? "bg-white text-[#3d6b2e]"
+                                : "border-[#c5d4a8] bg-white"
                             }`}
                           >
                             {isSelected && (
@@ -489,7 +496,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                   <button
                     onClick={handleNextQ2}
                     type="button"
-                    className="w-full min-h-touch py-3.5 bg-[#1b3e2b] hover:bg-[#122b1e] text-white font-extrabold text-base rounded-xl transition-all active:scale-[0.98] mt-2"
+                    className="w-full min-h-touch py-3.5 bg-[#1e3a0f] hover:bg-[#2a4f17] text-white font-black text-base rounded-full transition-all active:scale-[0.98] mt-2 cursor-pointer"
                   >
                     {t.thankYou.nextBtn}
                   </button>
@@ -499,7 +506,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               {/* Question 3 */}
               {currentQuestion === 3 && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-black text-[#1c261e]">
+                  <h3 className="text-lg font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                     3. {t.thankYou.questions.q3Title}
                   </h3>
                   <div className="space-y-2.5">
@@ -508,10 +515,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                         key={opt}
                         type="button"
                         onClick={() => handleSelectPriceRange(opt)}
-                        className={`w-full min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between ${
+                        className={`w-full min-h-touch p-3.5 rounded-2xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between cursor-pointer ${
                           priceRange === opt
-                            ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
-                            : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                            ? "bg-[#3d6b2e] text-white border-[#3d6b2e]"
+                            : "bg-[#eef2dc] hover:bg-[#dce8c8] text-[#1e3a0f] border-[#c5d4a8]"
                         }`}
                       >
                         <span>{opt}</span>
@@ -538,10 +545,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               {currentQuestion === 4 && (
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-lg font-black text-[#1c261e]">
+                    <h3 className="text-lg font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                       4. {t.thankYou.questions.q4Title}
                     </h3>
-                    <p className="text-xs text-[#526054] font-medium mt-0.5">
+                    <p className="text-xs text-[#4a5e3a] font-medium mt-0.5">
                       {t.thankYou.questions.q4Subtitle}
                     </p>
                   </div>
@@ -553,17 +560,17 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                           key={opt}
                           type="button"
                           onClick={() => togglePainPoint(opt)}
-                          className={`w-full min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm flex items-center space-x-3 transition-all ${
+                          className={`w-full min-h-touch p-3.5 rounded-2xl border-2 text-left font-bold text-sm flex items-center space-x-3 transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
-                              : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                              ? "bg-[#3d6b2e] text-white border-[#3d6b2e]"
+                              : "bg-[#eef2dc] hover:bg-[#dce8c8] text-[#1e3a0f] border-[#c5d4a8]"
                           }`}
                         >
                           <div
                             className={`w-5 h-5 rounded border flex items-center justify-center shrink-0 ${
                               isSelected
-                                ? "bg-white text-[#1b3e2b]"
-                                : "border-[#8c6f56] bg-white"
+                                ? "bg-white text-[#3d6b2e]"
+                                : "border-[#c5d4a8] bg-white"
                             }`}
                           >
                             {isSelected && (
@@ -583,7 +590,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                   <button
                     onClick={handleNextQ4}
                     type="button"
-                    className="w-full min-h-touch py-3.5 bg-[#1b3e2b] hover:bg-[#122b1e] text-white font-extrabold text-base rounded-xl transition-all active:scale-[0.98] mt-2"
+                    className="w-full min-h-touch py-3.5 bg-[#1e3a0f] hover:bg-[#2a4f17] text-white font-black text-base rounded-full transition-all active:scale-[0.98] mt-2 cursor-pointer"
                   >
                     {t.thankYou.nextBtn}
                   </button>
@@ -593,7 +600,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               {/* Question 5 */}
               {currentQuestion === 5 && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-black text-[#1c261e]">
+                  <h3 className="text-lg font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                     5. {t.thankYou.questions.q5Title}
                   </h3>
                   <div className="space-y-2.5">
@@ -602,10 +609,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                         key={opt}
                         type="button"
                         onClick={() => handleSelectPlatform(opt)}
-                        className={`w-full min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between ${
+                        className={`w-full min-h-touch p-3.5 rounded-2xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between cursor-pointer ${
                           preferredPlatform === opt
-                            ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
-                            : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                            ? "bg-[#3d6b2e] text-white border-[#3d6b2e]"
+                            : "bg-[#eef2dc] hover:bg-[#dce8c8] text-[#1e3a0f] border-[#c5d4a8]"
                         }`}
                       >
                         <span>{opt}</span>
@@ -631,7 +638,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               {/* Question 6 */}
               {currentQuestion === 6 && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-black text-[#1c261e]">
+                  <h3 className="text-lg font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                     6. {t.thankYou.questions.q6Title}
                   </h3>
                   <div className="space-y-2.5">
@@ -640,10 +647,10 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                         key={opt}
                         type="button"
                         onClick={() => handleSelectFrequency(opt)}
-                        className={`w-full min-h-touch p-3.5 rounded-xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between ${
+                        className={`w-full min-h-touch p-3.5 rounded-2xl border-2 text-left font-bold text-sm sm:text-base transition-all flex items-center justify-between cursor-pointer ${
                           transactionFreq === opt
-                            ? "bg-[#1b3e2b] text-white border-[#1b3e2b]"
-                            : "bg-[#f7f4ee] hover:bg-[#e8e2d5] text-[#1c261e] border-[#e8e2d5]"
+                            ? "bg-[#3d6b2e] text-white border-[#3d6b2e]"
+                            : "bg-[#eef2dc] hover:bg-[#dce8c8] text-[#1e3a0f] border-[#c5d4a8]"
                         }`}
                       >
                         <span>{opt}</span>
@@ -670,82 +677,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
 
           {surveyState === "completed" && (
             <form onSubmit={handleFinalCommentSubmit} className="space-y-4 text-center">
-              <div className="w-12 h-12 bg-[#e8f0eb] text-[#1b3e2b] rounded-full flex items-center justify-center mx-auto border border-[#1b3e2b]">
-                <svg
-                  className="w-7 h-7 stroke-current"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={3}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-
-              <h3 className="text-xl font-black text-[#1c261e]">
-                {t.thankYou.completed.title}
-              </h3>
-              <p className="text-xs sm:text-sm text-[#526054] font-medium">
-                {t.thankYou.completed.subtitle}
-              </p>
-
-              <textarea
-                rows={3}
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder={t.thankYou.completed.commentPlaceholder}
-                className="w-full p-3.5 bg-[#f7f4ee] border-2 border-[#e8e2d5] focus:border-[#1b3e2b] focus:bg-white rounded-xl text-sm font-medium outline-none transition-colors"
-              />
-
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <button
-                  type="submit"
-                  className="w-full min-h-touch py-3 bg-[#1b3e2b] text-white font-bold text-sm rounded-xl hover:bg-[#122b1e]"
-                >
-                  {t.thankYou.completed.submitBtn}
-                </button>
-                <button
-                  onClick={handleDismissSurvey}
-                  type="button"
-                  className="w-full min-h-touch py-3 bg-[#e8e2d5] text-[#1b3e2b] font-bold text-sm rounded-xl hover:bg-[#d4cbba]"
-                >
-                  {t.thankYou.completed.closeBtn}
-                </button>
-              </div>
-
-              <hr className="border-[#e8e2d5] my-4" />
-
-              <div className="pt-1">
-                <p className="text-xs font-bold text-[#8c6f56] mb-2">
-                  {t.thankYou.completed.shareText}
-                </p>
-                <a
-                  href={`https://t.me/share/url?url=${encodeURIComponent(
-                    typeof window !== "undefined"
-                      ? window.location.href
-                      : "https://zotdor.uz"
-                  )}&text=${encodeURIComponent(
-                    "Zotdor.uz — O'zbekistonning raqamli chorva bozori ro'yxatdan o'tish ochildi!"
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 bg-[#0088cc] text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm hover:bg-[#0077b5] transition-colors"
-                >
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.97 9.28c-.15.66-.54.82-1.09.51l-3.02-2.22-1.46 1.41c-.16.16-.3.3-.61.3l.22-3.09 5.63-5.09c.25-.22-.05-.34-.38-.12l-6.96 4.38-3-.94c-.65-.2-.67-.65.14-.97l11.71-4.51c.54-.2 1.02.13.84.96z" />
-                  </svg>
-                  <span>{t.thankYou.completed.shareTelegram}</span>
-                </a>
-              </div>
-            </form>
-          )}
-
-          {surveyState === "dismissed" && (
-            <div className="text-center space-y-4 py-4">
-              <div className="w-14 h-14 bg-[#e8f0eb] text-[#1b3e2b] rounded-full flex items-center justify-center mx-auto border-2 border-[#1b3e2b]">
+              <div className="w-14 h-14 bg-[#dce8c8] text-[#1e3a0f] rounded-full flex items-center justify-center mx-auto border border-[#3d6b2e]">
                 <svg
                   className="w-8 h-8 stroke-current"
                   fill="none"
@@ -759,10 +691,85 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                   />
                 </svg>
               </div>
-              <h3 className="text-xl font-black text-[#1c261e]">
+
+              <h3 className="text-xl font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
+                {t.thankYou.completed.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-[#4a5e3a] font-medium">
+                {t.thankYou.completed.subtitle}
+              </p>
+
+              <textarea
+                rows={3}
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder={t.thankYou.completed.commentPlaceholder}
+                className="w-full p-3.5 bg-[#eef2dc] border-2 border-[#c5d4a8] focus:border-[#3d6b2e] text-[#1e3a0f] rounded-2xl text-sm font-medium outline-none transition-colors"
+              />
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button
+                  type="submit"
+                  className="w-full min-h-touch py-3 bg-[#3d6b2e] text-white font-bold text-sm rounded-full hover:bg-[#2a4f17] cursor-pointer"
+                >
+                  {t.thankYou.completed.submitBtn}
+                </button>
+                <button
+                  onClick={handleDismissSurvey}
+                  type="button"
+                  className="w-full min-h-touch py-3 bg-[#dce8c8] text-[#1e3a0f] font-bold text-sm rounded-full hover:bg-[#c5d4a8] cursor-pointer"
+                >
+                  {t.thankYou.completed.closeBtn}
+                </button>
+              </div>
+
+              <hr className="border-[#c5d4a8] my-4" />
+
+              <div className="pt-1">
+                <p className="text-xs font-bold text-[#4a5e3a] mb-2">
+                  {t.thankYou.completed.shareText}
+                </p>
+                <a
+                  href={`https://t.me/share/url?url=${encodeURIComponent(
+                    typeof window !== "undefined"
+                      ? window.location.href
+                      : "https://zotdor.uz"
+                  )}&text=${encodeURIComponent(
+                    "Zotdor.uz — O'zbekistonning raqamli chorva bozori ro'yxatdan o'tish ochildi!"
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 bg-[#0088cc] text-white px-4 py-2.5 rounded-full font-bold text-xs shadow-sm hover:bg-[#0077b5] transition-colors"
+                >
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.97 9.28c-.15.66-.54.82-1.09.51l-3.02-2.22-1.46 1.41c-.16.16-.3.3-.61.3l.22-3.09 5.63-5.09c.25-.22-.05-.34-.38-.12l-6.96 4.38-3-.94c-.65-.2-.67-.65.14-.97l11.71-4.51c.54-.2 1.02.13.84.96z" />
+                  </svg>
+                  <span>{t.thankYou.completed.shareTelegram}</span>
+                </a>
+              </div>
+            </form>
+          )}
+
+          {surveyState === "dismissed" && (
+            <div className="text-center space-y-4 py-4">
+              <div className="w-14 h-14 bg-[#dce8c8] text-[#1e3a0f] rounded-full flex items-center justify-center mx-auto border-2 border-[#3d6b2e]">
+                <svg
+                  className="w-8 h-8 stroke-current"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-[#1e3a0f]" style={{ fontFamily: 'var(--font-display)' }}>
                 {t.thankYou.title.replace("{name}", name)}
               </h3>
-              <p className="text-sm text-[#526054] font-medium leading-relaxed max-w-sm mx-auto">
+              <p className="text-sm text-[#4a5e3a] font-medium leading-relaxed max-w-sm mx-auto">
                 {t.thankYou.subtitle}
               </p>
               <button
@@ -774,15 +781,15 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                   setRegion("");
                 }}
                 type="button"
-                className="mt-2 px-5 py-2.5 bg-[#e8e2d5] text-[#1b3e2b] font-bold text-xs rounded-xl hover:bg-[#d4cbba]"
+                className="mt-2 px-5 py-2.5 bg-[#dce8c8] text-[#1e3a0f] font-bold text-xs rounded-full hover:bg-[#c5d4a8] cursor-pointer"
               >
-                Qayta ariza to'ldirish
+                {t.thankYou.completed.resetBtn}
               </button>
             </div>
           )}
         </div>
       ) : (
-        /* INITIAL FORM: NAME, REGION, PHONE */
+        /* INITIAL LEAD FORM: NAME, REGION, PHONE */
         <form
           onSubmit={handleSubmitLead}
           onFocus={handleFormFocus}
@@ -792,7 +799,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div>
             <label
               htmlFor={`${idPrefix}-name-input`}
-              className="block text-xs font-black uppercase tracking-wider text-[#1c261e] mb-1"
+              className="block text-xs font-black uppercase tracking-wider text-[#1e3a0f] mb-1"
             >
               {t.form.nameLabel} <span className="text-red-600">*</span>
             </label>
@@ -806,9 +813,9 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 if (nameError) setNameError("");
               }}
               placeholder={t.form.namePlaceholder}
-              className={`w-full min-h-touch px-4 py-3 bg-[#f7f4ee] border-2 ${
-                nameError ? "border-red-500 bg-red-50" : "border-[#e8e2d5]"
-              } focus:border-[#1b3e2b] focus:bg-white text-[#1c261e] font-bold text-base rounded-xl outline-none transition-colors`}
+              className={`w-full min-h-touch px-4 py-3 bg-[#eef2dc] border-2 ${
+                nameError ? "border-red-500 bg-red-50" : "border-[#c5d4a8]"
+              } focus:border-[#3d6b2e] focus:bg-white text-[#1e3a0f] font-bold text-base rounded-2xl outline-none transition-colors`}
             />
             {nameError && (
               <p className="text-xs font-bold text-red-600 mt-1">
@@ -821,7 +828,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div>
             <label
               htmlFor={`${idPrefix}-region-select`}
-              className="block text-xs font-black uppercase tracking-wider text-[#1c261e] mb-1"
+              className="block text-xs font-black uppercase tracking-wider text-[#1e3a0f] mb-1"
             >
               {t.form.regionLabel} <span className="text-red-600">*</span>
             </label>
@@ -833,9 +840,9 @@ export const LeadForm: React.FC<LeadFormProps> = ({
                 setRegion(e.target.value);
                 if (regionError) setRegionError("");
               }}
-              className={`w-full min-h-touch px-4 py-3 bg-[#f7f4ee] border-2 ${
-                regionError ? "border-red-500 bg-red-50" : "border-[#e8e2d5]"
-              } focus:border-[#1b3e2b] focus:bg-white text-[#1c261e] font-bold text-base rounded-xl outline-none transition-colors`}
+              className={`w-full min-h-touch px-4 py-3 bg-[#eef2dc] border-2 ${
+                regionError ? "border-red-500 bg-red-50" : "border-[#c5d4a8]"
+              } focus:border-[#3d6b2e] focus:bg-white text-[#1e3a0f] font-bold text-base rounded-2xl outline-none transition-colors`}
             >
               <option value="">{t.form.regionPlaceholder}</option>
               {t.regions.map((reg) => (
@@ -855,7 +862,7 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           <div>
             <label
               htmlFor={`${idPrefix}-phone-input`}
-              className="block text-xs font-black uppercase tracking-wider text-[#1c261e] mb-1"
+              className="block text-xs font-black uppercase tracking-wider text-[#1e3a0f] mb-1"
             >
               {t.form.phoneLabel} <span className="text-red-600">*</span>
             </label>
@@ -867,9 +874,9 @@ export const LeadForm: React.FC<LeadFormProps> = ({
               value={phone}
               onChange={handlePhoneChange}
               placeholder={t.form.phonePlaceholder}
-              className={`w-full min-h-touch px-4 py-3 bg-[#f7f4ee] border-2 ${
-                phoneError ? "border-red-500 bg-red-50" : "border-[#e8e2d5]"
-              } focus:border-[#1b3e2b] focus:bg-white text-[#1c261e] font-black text-lg rounded-xl outline-none transition-colors tracking-wider font-mono`}
+              className={`w-full min-h-touch px-4 py-3 bg-[#eef2dc] border-2 ${
+                phoneError ? "border-red-500 bg-red-50" : "border-[#c5d4a8]"
+              } focus:border-[#3d6b2e] focus:bg-white text-[#1e3a0f] font-black text-lg rounded-2xl outline-none transition-colors tracking-wider font-mono`}
             />
             {phoneError && (
               <p className="text-xs font-bold text-red-600 mt-1">
@@ -878,11 +885,11 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             )}
           </div>
 
-          {/* Submit Button (min 48px height, high contrast) */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full min-h-touch py-4 px-6 bg-[#1b3e2b] hover:bg-[#122b1e] active:scale-[0.98] text-[#f7f4ee] font-black text-lg sm:text-xl rounded-xl shadow-md border-2 border-[#122b1e] transition-all disabled:opacity-75 flex items-center justify-center space-x-2 mt-2"
+            className="w-full min-h-touch py-4 px-6 bg-[#3d6b2e] hover:bg-[#2a4f17] active:scale-[0.98] text-white font-black text-lg sm:text-xl rounded-full shadow-md border-2 border-[#2a4f17] transition-all disabled:opacity-75 flex items-center justify-center space-x-2 mt-2 cursor-pointer"
           >
             {isSubmitting ? (
               <>
@@ -912,16 +919,16 @@ export const LeadForm: React.FC<LeadFormProps> = ({
             )}
           </button>
 
-          {/* Small Trust Note under button */}
-          <p className="text-[11px] sm:text-xs text-[#526054] font-medium text-center leading-normal pt-1">
+          {/* Small Trust Note */}
+          <p className="text-[11px] sm:text-xs text-[#4a5e3a] font-medium text-center leading-normal pt-1">
             {t.form.trustNote}
           </p>
 
           {/* Registered count badge (only if count >= 50) */}
           {registeredCount >= 50 && (
             <div className="pt-2 text-center">
-              <span className="inline-flex items-center space-x-1.5 bg-[#e8f0eb] border border-[#2d5a3f]/20 px-3 py-1 rounded-full text-xs font-bold text-[#1b3e2b]">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="inline-flex items-center space-x-1.5 bg-[#dce8c8] border border-[#3d6b2e]/20 px-3 py-1 rounded-full text-xs font-bold text-[#1e3a0f]">
+                <span className="w-2 h-2 rounded-full bg-[#3d6b2e] animate-pulse"></span>
                 <span>
                   {t.form.registeredCount.replace(
                     "{count}",
