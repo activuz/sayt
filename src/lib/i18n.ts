@@ -1,4 +1,4 @@
-import { transliterateObject } from "./transliterate";
+import { transliterateObject, stripMarkersObject } from "./transliterate";
 
 export type Language = "cyrl" | "latn";
 
@@ -10,11 +10,11 @@ const dictionaryLatin = {
     langSwitch: "Кирилл алифбоси",
   },
   hero: {
-    badge: "Tez orada ishga tushadi",
-    title: "Chorvani sotish va sotib olish",
+    badge: "Platforma o'z mijozlarini kutmoqda",
+    title: "Chorvadorlar uchun yangi onlayn bozor",
     subtitle:
-      "O'zbekistonning istalgan nuqtasidan — qoramol, qo'y-echki, ot va boshqa chorva mollari. Sotuvchi ham, xaridor ham bir joyda.",
-    trust1: "0% komissiya — bepul e'lon berish",
+      "O'zbekistonning istalgan nuqtasidan - qoramol, qo'y-echki, ot va boshqa chorva mollari. Yaqin atrofdagi hamyonbop mollar yoki eng zotdor chorvalarni toping.",
+    trust1: "Chorvalar adminlar tomonidan tekshiriladi. (firibgarlardan holi)",
     trust2: "To'g'ridan-to'g'ri sotuvchi va xaridorlar",
     trust3: "Barcha 14 viloyat va tumanlar bo'yicha",
   },
@@ -32,7 +32,7 @@ const dictionaryLatin = {
     submitting: "Yuborilmoqda...",
     trustNote:
       "Platforma ishga tushganda birinchilardan bo'lib sizga xabar beramiz. Raqamingiz uchinchi shaxsga berilmaydi.",
-    registeredCount: "Hozircha {count} ta chorvador ro'yxatdan o'tdi",
+    registeredCount: "Hozircha {247+**count**} ta chorvador ro'yxatdan o'tdi",
     offlineNotice:
       "Ma'lumotingiz qurilmangizda saqlandi va internet tiklanishi bilan avtomatik yuboriladi.",
   },
@@ -54,41 +54,41 @@ const dictionaryLatin = {
   ],
   problem: {
     title: "Hozir chorva qanday sotiladi?",
-    card1Title: "O'nlab kanal, bitta qidiruv yo'q",
+    card1Title: "Mol bozor yaxshi, lekin tanlov kam",
     card1Desc:
-      "Kerakli molni topish uchun 20 ta Telegram kanalini qo'lda kuzatasiz. Eski e'lonlar yo'qolib ketadi.",
-    card2Title: "Sotuvchini tekshirib bo'lmaydi",
-    card2Desc:
-      "Video bir xil, mol boshqa chiqadi. Oldindan to'lov qilib aldanganlar ko'p.",
-    card3Title: "Transport va hujjat",
+      "An'anaviy mol bozorlarida hamma mol ham soyilmaydi yoki har doim ko'ngildagidek mol uchrayvermaydi.",
+    card3Title: "Onlayn savdoda ishonch past",
     card3Desc:
-      "Boshqa viloyatdan mol keltirish uchun maxsus transport va me'yoriy mezonlar kerak. Buni hech kim tashkil qilib bermaydi.",
+      "**Telegram** yoki **YouTube** kanallarda ko'rsatilgan mol videoda aytilganidek chiqmasligi mumkin.",
+    card2Title: "Zotdor hayvon topish oson emas",
+    card2Desc:
+      "Tanishlarga qo'ng'iroq qilasiz, surishtirasiz. Yaxshi hayvonni topish uchun soatlab sayohat qilishingiz yoki dallollarga pul sarflashingiz kerak. ",
   },
   solution: {
     title: "Biz nima qilamiz",
     step1Title: "1. Bitta joyda barcha e'lon",
-    step1Desc: "Zot, yosh, vazn, narx va viloyat bo'yicha qidiring.",
+    step1Desc: "Respublika bo'ylab e'lonlar bir joyda. Har yakshanba emas, har kuni mavjud.",
     step2Title: "2. Tekshirilgan sotuvchi",
-    step2Desc: "Har bir sotuvchi ro'yxatdan o'tadi. Kim kimligi ma'lum.",
-    step3Title: "3. Yetkazib berish",
-    step3Desc: "Transport va me'yoriy hujjatlarni biz tashkil qilamiz.",
+    step2Desc: "Har bir sotuvchi ro'yxatdan o'tadi. Kim kimligi ma'lum. Qaytarish imkoniyati mavjud.",
+    step3Title: "3. Eng mos natijalar qulay filtrlar orqali",
+    step3Desc: "Zot, yosh, vazn, narx va viloyat bo'yicha qidiring. Yaqin atrofdagi natijalar avtomatik tavsiya qilinadi.",
   },
   founder: {
     title: "Loyihani kim quryapti?",
-    bio: "Men — Baxtiyor, Surxondaryodanman. Dasturchiman va IT o'quv markazi asoschisiman. Chorva oldi-sottisida odamlar aldanayotganini ko'rib, buni tartibga solish uchun platforma quryapman.",
-    contactLead: "Savolingiz bo'lsa — to'g'ridan-to'g'ri yozing:",
+    bio: "Men - Jahongir, Surxondaryodanman. Dasturchiman. Chorva oldi-sottisida odamlar duch kelyotgan qiyinchiliklarni o'rganib platforma qurishni boshladim.",
+    contactLead: "Savolingiz bo'lsa - to'g'ridan-to'g'ri yozing:",
     telegramBtn: "Telegram orqali yozish",
     phoneBtn: "+998 93 884 89 10",
   },
   openState: {
     badge: "Ochiq ma'lumot",
-    text: "Platforma hozir qurilmoqda. Biz avval chorvadorlar bilan gaplashib, ularga kerakli narsani quryapmiz — keyin ishga tushiramiz. Ro'yxatdan o'tganlar birinchi bo'lib kirish huquqini oladi va birinchi e'lonini bepul joylashtiradi.",
+    text: "Platforma hozir qurilmoqda. Biz mukammal dasturni yaratishga ahd qilganmiz. Buning uchun chorvadorlar bilan gaplashib, ularga kerakli narsani quryapmiz. Ro'yxatdan o'ting va birinchilardan bo'lib bizdan foydalaning.",
   },
   secondCta: {
     title: "Ro'yxatdan o'ting",
   },
   footer: {
-    brand: "Zotdor.uz",
+    brand: "**Zotdor.uz**",
     tagline: "Chorva oldi-sotti platformasi",
     telegram: "Telegram kanalimiz",
     phone: "Aloqa: +998 93 884 89 10",
@@ -178,7 +178,9 @@ const dictionaryLatin = {
 const dictionaryCyrillic = transliterateObject(dictionaryLatin);
 dictionaryCyrillic.header.langSwitch = "Lotin yozuvi";
 
+const dictionaryLatinCleaned = stripMarkersObject(dictionaryLatin);
+
 export const i18n = {
-  latn: dictionaryLatin,
+  latn: dictionaryLatinCleaned,
   cyrl: dictionaryCyrillic,
 };

@@ -84,14 +84,28 @@ const LATIN_TO_CYRILLIC_MAP: [RegExp, string][] = [
 ];
 
 /**
- * Converts a Latin string into Cyrillic string.
+ * Converts a Latin string into Cyrillic string, preserving text wrapped in double asterisks.
  */
 export function toCyrillic(text: string): string {
   if (!text) return text;
-  let result = text;
+
+  // Preserve double-asterisk marked words (like **YouTube**, **Telegram**)
+  const placeholders: string[] = [];
+  const processedText = text.replace(/\*\*([^*]+)\*\*/g, (_, p1) => {
+    placeholders.push(p1);
+    return `@@${placeholders.length - 1}@@`;
+  });
+
+  let result = processedText;
   for (const [pattern, replacement] of LATIN_TO_CYRILLIC_MAP) {
     result = result.replace(pattern, replacement);
   }
+
+  // Restore the preserved words without the double asterisks
+  placeholders.forEach((word, index) => {
+    result = result.replace(new RegExp(`@@${index}@@`, "g"), word);
+  });
+
   return result;
 }
 
@@ -109,6 +123,26 @@ export function transliterateObject<T>(obj: T): T {
     const res: Record<string, any> = {};
     for (const key of Object.keys(obj)) {
       res[key] = transliterateObject((obj as Record<string, any>)[key]);
+    }
+    return res as T;
+  }
+  return obj;
+}
+
+/**
+ * Recursively strips the ** word preservation markers for the Latin view.
+ */
+export function stripMarkersObject<T>(obj: T): T {
+  if (typeof obj === "string") {
+    return obj.replace(/\*\*([^*]+)\*\*/g, "$1") as unknown as T;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map((item) => stripMarkersObject(item)) as unknown as T;
+  }
+  if (obj !== null && typeof obj === "object") {
+    const res: Record<string, any> = {};
+    for (const key of Object.keys(obj)) {
+      res[key] = stripMarkersObject((obj as Record<string, any>)[key]);
     }
     return res as T;
   }

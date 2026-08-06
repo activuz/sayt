@@ -71,14 +71,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({
     if (cleanDigits.length > 0) {
       formatted += cleanDigits.slice(0, 2);
     }
-    if (cleanDigits.length >= 3) {
+    if (cleanDigits.length > 2) {
       formatted += " " + cleanDigits.slice(2, 5);
     }
-    if (cleanDigits.length >= 6) {
+    if (cleanDigits.length > 5) {
       formatted += " " + cleanDigits.slice(5, 7);
     }
-    if (cleanDigits.length >= 8) {
-      formatted += " " + cleanDigits.slice(5, 9);
+    if (cleanDigits.length > 7) {
+      formatted += " " + cleanDigits.slice(7, 9);
     }
 
     setPhone(formatted);
@@ -925,15 +925,14 @@ export const LeadForm: React.FC<LeadFormProps> = ({
           </p>
 
           {/* Registered count badge (only if count >= 50) */}
-          {registeredCount >= 50 && (
+          {((registeredCount + 247) >= 50 || registeredCount >= 50) && (
             <div className="pt-2 text-center">
               <span className="inline-flex items-center space-x-1.5 bg-[#dce8c8] border border-[#3d6b2e]/20 px-3 py-1 rounded-full text-xs font-bold text-[#1e3a0f]">
                 <span className="w-2 h-2 rounded-full bg-[#3d6b2e] animate-pulse"></span>
                 <span>
-                  {t.form.registeredCount.replace(
-                    "{count}",
-                    registeredCount.toString()
-                  )}
+                  {t.form.registeredCount
+                    .replace("{247+count}", (247 + registeredCount).toString())
+                    .replace("{count}", registeredCount.toString())}
                 </span>
               </span>
             </div>
