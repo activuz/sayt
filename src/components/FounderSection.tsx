@@ -27,7 +27,7 @@ export const FounderSection: React.FC = () => {
           <div className="shrink-0 relative">
             <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl overflow-hidden border-[3px] border-[#1e3a0f] shadow-md relative bg-[#dce8c8] flex items-center justify-center rotate-3">
               <Image
-                src="/images.webp"
+                src="/founder.webp"
                 alt="Baxtiyor — Zotdor.uz asoschisi"
                 width={144}
                 height={144}
@@ -56,7 +56,7 @@ export const FounderSection: React.FC = () => {
               </p>
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
                 <a
-                  href="https://t.me/jahongirtech"
+                  href="https://t.me/zotdor_chorva_bozor?direct"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="min-h-touch px-5 py-3 bg-[#0088cc] hover:bg-[#0077b5] active:scale-95 text-white font-bold text-xs sm:text-sm rounded-full transition-all inline-flex items-center space-x-2 shadow-sm cursor-pointer"
