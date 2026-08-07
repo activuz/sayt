@@ -10,6 +10,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zotdor.uz"),
   title: "Zotdor.uz — Chorvani sotish va sotib olish",
   description:
     "O'zbekistonning istalgan nuqtasidan — qoramol, qo'y-echki, ot va boshqa chorva mollari. Sotuvchi ham, xaridor ham bir joyda.",
@@ -32,6 +33,21 @@ export const metadata: Metadata = {
     siteName: "Zotdor.uz",
     locale: "uz_UZ",
     type: "website",
+    images: [
+      {
+        url: "/ad_poster.png",
+        width: 1200,
+        height: 630,
+        alt: "Zotdor.uz — Chorvani sotish va sotib olish",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Zotdor.uz — Chorvani sotish va sotib olish",
+    description:
+      "O'zbekistonning istalgan nuqtasidan — qoramol, qo'y-echki, ot va boshqa chorva mollari. Sotuvchi ham, xaridor ham bir joyda.",
+    images: ["/ad_poster.png"],
   },
   icons: {
     icon: "/favicon.svg",
