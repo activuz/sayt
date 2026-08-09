@@ -1,80 +1,109 @@
-# Zotdor.uz — Чорвани сотиш ва сотиб олиш платформаси
+# Zotdor.uz
 
-Zotdor.uz — Ўзбекистонда чорва молларини (қорамол, қўй-эчки, от ва б.) воситачиларсиз, тўғридан-тўғри сотиш ва сотиб олиш учун мўлжалланган миллий рақамли платформа.
+**Chorva savdosining yangi standarti**
 
-## 🚀 Тезкор Ишга Тўшириш (Local Development)
-
-1. Клонлаш ва боғлиқликларни ўрнатиш:
-```bash
-npm install
-```
-
-2. `.env.local` файлини яратиш:
-```env
-# Telegram Bot Integratsiyasi
-TELEGRAM_BOT_TOKEN=123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ
-TELEGRAM_CHAT_ID=-1001234567890
-
-# Supabase Integratsiyasi
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-```
-
-3. Локал серверни юритиш:
-```bash
-npm run dev
-```
+O'zbekiston chorva bozori uchun marketplace platformasi
 
 ---
 
-## 🗄️ Supabase DB Sxemasi (SQL)
+## 📋 Loyiha haqida
 
-Supabase Dashboard -> **SQL Editor** bo'limida quyidagi skriptni bosing:
+Zotdor.uz — bu oddiy e'lonlar taxtasi emas. Bu chorva mollarini savdo qilish jarayonini boshqaradigan, dalilni kafolatlaydigan va bozor narxini shakllantiradigan raqamli platforma.
 
-```sql
-create table public.leads (
-  id uuid default gen_random_uuid() primary key,
-  created_at timestamptz default now() not null,
-  name text not null,
-  region text not null,
-  phone text not null,
-  lang text default 'cyrl',
-  source text default 'direct',
-  user_agent text,
-  role text,
-  animal_types text[],
-  price_range text,
-  pain_points text[],
-  comment text,
-  survey_status text default 'none'
-);
+Hozirgi bozorda (e'lonlar taxtalari, Telegram kanallari, an'anaviy mol bozorlari) sotuvchi va xaridorni faqat uchrashtiradi va savdoning sifati uchun hech kim javob bermaydi. Zotdor.uz esa har bir hayvonni platforma standarti bo'yicha ro'yxatga oladi — qat'iy parametrlar, haqiqiy tasvir va bir xil o'lchov asosida.
 
--- Row Level Security (RLS) Sozlash
-alter table public.leads enable row level security;
+## ❗ Muammo
 
--- Anon va Service Role uchun ruxsat berish:
-create policy "Allow insert for everyone" on public.leads for insert with check (true);
-create policy "Allow update by id" on public.leads for update using (true);
-create policy "Allow read count for everyone" on public.leads for select using (true);
-```
+Hozirgi chorva savdosi tartibsiz ishlaydi:
+
+| # | Muammo | Tavsif |
+|---|--------|--------|
+| 01 | **Narx tasodifiy** | Bir xil mol bir joyda 18 mln, boshqa joyda 30 mln so'm. Na sotuvchi, na xaridor haqiqiy narxni bilmaydi |
+| 02 | **Ko'rsatilgan mol — boshqa mol** | Video va rasm sotuvchi qo'lida. Kelib ko'rganda mol boshqacha chiqadi. Yo'l va vaqt behuda ketadi |
+| 03 | **Tanlov tor, ishonch past** | Mol bozorida faqat o'sha kungi tanlov. Onlaynda esa kimga ishonishni hech kim bilmaydi |
+
+## 🏆 Raqobat muhiti
+
+Hozirgi bozorda hech kim marketplace darajasida ishlamayapti. Barcha raqobatchilar (e'lonlar taxtasi, Telegram kanallari, an'anaviy mol bozori) bitta modelda ishlaydi:
+
+- ✕ Narx nazorati yo'q
+- ✕ Dalil kafolati yo'q
+- ✕ Sotilgan mol e'londa qoladi
+- ✕ Sotuvchi tarixi yo'q
+- ✕ Ma'lumot to'planmaydi
+- ✕ Sifat uchun javobgar yo'q
+
+## 💡 Asosiy g'oya
+
+**E'lon emas — hayvon yozuvi.**
+
+E'lon — sotuvchining reklamasi: sarlavhasini ham, rasmini ham, nimani aytmaslikni ham u tanlaydi. Zotdor'da esa hayvon platforma standarti bo'yicha ro'yxatga olinadi:
+
+- **Qat'iy parametrlar** — erkin matn emas, har bir ko'rsatkich alohida maydonda
+- **Haqiqiy tasvir** — media platforma orqali olinadi, tashqaridan yuklanmaydi
+- **Bir xil o'lchov** — barcha narx so'm/kg ga keltiriladi va taqqoslanadi
+
+## 🎯 Farqimiz
+
+| Mavzu | Hozirgi bozor | Zotdor.uz |
+|---|---|---|
+| **Narx** | Sotuvchi xohlagancha yozadi | Har bir narx so'm/kg bo'yicha tekshiriladi, shubhali narxlar ko'rib chiqiladi |
+| **Tasvir** | Istalgan joydan yuklanadi | Faqat platforma orqali olinadi |
+| **Tekshiruv** | Yo'q | Shubhali narx va shikoyat darhol ko'rib chiqiladi |
+| **Sotilgan mol** | E'londa qolib ketadi | Holati o'zgaradi, tarixga o'tadi |
+| **Ma'lumot** | To'planmaydi | Bozor narxi ma'lumoti to'planib boradi |
+
+## 📊 Bozor hajmi
+
+O'zbekistonda 35 mln boshdan ortiq yirik chorva mavjud:
+
+- **12,2 mln** bosh qoramol
+- **23,1 mln** bosh qo'y va echki
+- **120,9 mln** bosh parranda
+
+*Manba: Milliy statistika qo'mitasi, 2026-yil qishloq xo'jaligi ro'yxatga olish (dastlabki natijalar)*
+
+Davlat maqsadlari (2028): qoramol sonini 16,5 mln boshga yetkazish, nasldor qoramol ulushini 90% ga chiqarish (PQ-179, 12.05.2026).
+
+### Savdo hajmi
+
+| Ko'rsatkich | Qiymat | Tavsif |
+|---|---|---|
+| Umumiy bozor | **$5 mlrd** | Yiliga sotiladigan ~9 mln bosh chorva savdosining taxminiy qiymati |
+| Erishish mumkin bo'lgan bozor | **$650 mln** | Yaqin yillarda onlayn kanalga o'tishi mumkin bo'lgan ulush (~13%) |
+| 1 yillik maqsad | **$50 mln** | Platforma orqali o'tadigan savdo hajmi |
+
+*Baholash asosi: 2026-yil ro'yxatga olish ma'lumotlari bo'yicha bosh soni, yillik savdo aylanmasi qoramolda ~20%, qo'y-echkida ~30% deb olindi; o'rtacha narx amaldagi bozor narxlaridan hisoblandi.*
+
+## ⏰ Nima uchun aynan hozir
+
+Davlat chorvani hujjatlashtirishni boshladi — veterinariya pasporti bosqichma-bosqich majburiy bo'lmoqda:
+
+- **14 kun – 1 oy**: Qoramol va tuyalar
+- **1 – 2 oy**: Qo'y va echkilar
+- **3 – 6 oy**: Ot va boshqa hayvonlar
+
+Har bir hayvon rasmiy hujjatga ega bo'ladi — ya'ni platformaga kerak bo'lgan identifikator bozorning o'zida paydo bo'ladi. Ayni paytda yuz minglab chorvador birinchi marta hujjat rasmiylashtirish jarayonidan o'tadi. Odat o'zgarayotgan bu lahza — yangi platformaga kirishning eng qulay payti.
+
+## ✅ Foyda va qulaylik
+
+### Sotuvchi uchun
+- Moli respublika bo'ylab ko'rinadi, bozor kunini kutmaydi
+- Dallolga to'lanadigan haq va yo'l xarajati qisqaradi
+- Haqiqiy tasvir tufayli mol qiymatiga yarasha baholanadi
+- Sotgani ortgani sari obro'si to'planib boradi
+
+### Xaridor uchun
+- Zot, yosh, vazn, narx va hudud bo'yicha aniq qidiruv
+- Ko'rgan tasviri haqiqiy — safar behuda ketmaydi
+- Narx bozorga mos yoki mos emasligini darhol ko'radi
+- Sotuvchining oldingi savdolari va tarixi ochiq
+
+## 📞 Aloqa
+
+- **Veb-sayt:** [zotdor.uz](https://zotdor.uz)
+- **Telefon:** +998 93 884 89 10
 
 ---
 
-## 🌐 Vercel Deploy Yo'riqnomasi
-
-1. Vercel dashboardida yangi loyiha qo'shing (`Import Repository`).
-2. Environment Variables bo'limida quyidagilarni kiriting:
-   - `TELEGRAM_BOT_TOKEN`
-   - `TELEGRAM_CHAT_ID`
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-3. **Deploy** tugmasini bosing!
-
----
-
-## 📱 Texnik Xususiyatlari
-- Next.js 14 App Router, TypeScript, Tailwind CSS
-- Mobil birinchi navbatda (Mobile-first, 3G internet optimizatsiyasi)
-- Офлайн сақлаш (LocalStorage fallback & retry logic)
-- Икки алифбо (Кирилл ва Lotin) 100% `lib/i18n.ts` орқали
+> Zotdor.uz — chorva savdosining standartini o'rnatadigan, dalilni kafolatlaydigan va bozor narxini biladigan platforma.
