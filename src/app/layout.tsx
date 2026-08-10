@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     images: ["/ad_poster.png"],
   },
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/favicon.webp",
+    shortcut: "/favicon.webp",
+    apple: "/favicon.webp",
   },
   robots: {
     index: true,
@@ -69,7 +69,7 @@ export default function RootLayout({
     <html lang="uz">
       <head>
         <meta name="format-detection" content="telephone=no" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.webp" type="image/webp" />
       </head>
       <body className="bg-[#eef2dc] text-[#1e3a0f] antialiased selection:bg-[#3d6b2e] selection:text-white">
         <LanguageProvider>{children}</LanguageProvider>

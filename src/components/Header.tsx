@@ -11,9 +11,7 @@ export const Header: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2.5">
-          <div className="w-10 h-10 rounded-2xl bg-[#1e3a0f] text-[#eef2dc] flex items-center justify-center font-black text-lg shadow-sm">
-            <img src="/favicon.png" alt="Logo" className="w-5 h-5" />
-          </div>
+          <img src="/favicon.webp" alt="Logo" className="w-10 h-10 rounded-full" />
           <div>
             <span className="text-xl sm:text-2xl font-black tracking-tight text-[#1e3a0f] block leading-none" style={{ fontFamily: "var(--font-display)" }}>
               Zotdor<span className="text-[#3d6b2e]">.uz</span>
