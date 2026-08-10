@@ -12,13 +12,7 @@ export const Header: React.FC = () => {
         {/* Logo */}
         <div className="flex items-center space-x-2.5">
           <div className="w-10 h-10 rounded-2xl bg-[#1e3a0f] text-[#eef2dc] flex items-center justify-center font-black text-lg shadow-sm">
-            <svg
-              className="w-5 h-5 fill-current"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M19 8h-2c0-2.21-1.79-4-4-4S9 5.79 9 8H7c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-6-2c1.1 0 2 .9 2 2h-4c0-1.1.9-2 2-2zm-5 6h2v2H8v-2zm4 6H8v-2h4v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2z" />
-            </svg>
+            <img src="/favicon.png" alt="Logo" className="w-5 h-5" />
           </div>
           <div>
             <span className="text-xl sm:text-2xl font-black tracking-tight text-[#1e3a0f] block leading-none" style={{ fontFamily: "var(--font-display)" }}>
