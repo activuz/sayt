@@ -179,6 +179,7 @@ const dictionaryLatin = {
   header: {
     brand: "Zotdor.uz",
     subBrand: "Chorva bozori",
+    demoBtn: "Demo sayt",
     langSwitch: "Кирилл алифбоси",
   },
   hero: {
@@ -186,6 +187,7 @@ const dictionaryLatin = {
     title: "Chorvadorlar uchun yangi onlayn bozor",
     subtitle:
       "O'zbekistonning istalgan nuqtasidan — qoramol, qo'y-echki, ot va boshqa chorva mollari. Yaqin atrofdagi hamyonbop mollarni, eng zotdor chorvalarni shu yerdan toping.",
+    demoBtn: "Demo saytni ko'rish",
     trust1: "Har bir e'lon admin tomonidan tekshiriladi — firibgarlarsiz bozor",
     trust2: "Vositachisiz: sotuvchi bilan to'g'ridan-to'g'ri aloqa",
     trust3: "Respublikaning barcha 14 hududi va tumanlari bo'yicha",

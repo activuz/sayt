@@ -27,6 +27,17 @@ export const Footer: React.FC = () => {
         {/* Links & Switcher */}
         <div className="flex flex-col sm:flex-row items-center gap-4 text-xs font-bold text-[#c5d4a8]">
           <a
+            href="https://web.zotdor.uz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#eef2dc] transition-colors flex items-center space-x-1.5 cursor-pointer text-[#a8d45e]"
+          >
+            <span>web.zotdor.uz (Demo)</span>
+          </a>
+
+          <span className="hidden sm:inline text-[#3d6b2e]">•</span>
+
+          <a
             href="https://t.me/zotdor_chorva_bozor"
             target="_blank"
             rel="noopener noreferrer"

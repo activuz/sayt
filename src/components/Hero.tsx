@@ -64,10 +64,18 @@ export const Hero: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </button>
-            <div className="min-h-touch px-6 py-3.5 bg-[#1e3a0f] text-[#eef2dc] font-bold text-sm sm:text-base rounded-full inline-flex items-center space-x-2">
+            <a
+              href="https://web.zotdor.uz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="min-h-touch px-6 py-3.5 bg-[#1e3a0f] hover:bg-[#2a4f17] text-[#eef2dc] font-bold text-sm sm:text-base rounded-full inline-flex items-center space-x-2 transition-all active:scale-95 shadow-md border border-[#a8d45e]/30 cursor-pointer"
+            >
               <span className="w-2.5 h-2.5 rounded-full bg-[#a8d45e] animate-pulse"></span>
-              <span>2026</span>
-            </div>
+              <span>{t.hero.demoBtn}</span>
+              <svg className="w-4 h-4 text-[#a8d45e]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </div>
 
