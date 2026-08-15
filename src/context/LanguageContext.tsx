@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { i18n, Language } from "@/lib/i18n";
+import { i18n, Language, LANGUAGE_CYCLE } from "@/lib/i18n";
 
 interface LanguageContextType {
   lang: Language;
@@ -14,6 +14,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
+const VALID_LANGS: Language[] = ["cyrl", "latn", "en"];
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
@@ -23,7 +25,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     try {
       const saved = localStorage.getItem("zotdor_lang") as Language;
-      if (saved === "cyrl" || saved === "latn") {
+      if (VALID_LANGS.includes(saved)) {
         setLangState(saved);
       }
     } catch (_) {
@@ -38,9 +40,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (_) {}
   }, []);
 
+  // Cycle through languages: cyrl → latn → en → cyrl
   const toggleLang = useCallback(() => {
     setLangState((prev) => {
-      const next = prev === "cyrl" ? "latn" : "cyrl";
+      const currentIndex = LANGUAGE_CYCLE.indexOf(prev);
+      const next = LANGUAGE_CYCLE[(currentIndex + 1) % LANGUAGE_CYCLE.length];
       try {
         localStorage.setItem("zotdor_lang", next);
       } catch (_) {}
@@ -69,3 +73,4 @@ export const useLanguage = () => {
   }
   return context;
 };
+
